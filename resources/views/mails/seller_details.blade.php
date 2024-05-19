@@ -31,14 +31,6 @@
         <li>Bedrooms: {{ $property->no_of_bedrooms }}</li>
         <li>Bathrooms: {{ $property->no_of_bathrooms }}</li>
         <li>Area: {{ $property->area_in_sqft }} sqft</li>
-        <li>Extra Features:</li>
-        <ul>
-            @isset($property->extra_features)
-                @foreach (json_decode($property->extra_features) as $extra_feature_key => $extra_feature_value)
-                    <li>{{ $extra_feature_key }}: {{ $extra_feature_value }}</li>
-                @endforeach
-            @endisset
-        </ul>
 
 </body>
 

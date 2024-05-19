@@ -2,7 +2,7 @@
 
     <div class="container mx-auto">
         <div class="max-w-md mx-auto my-10 bg-white p-5 rounded shadow-md">
-            <h2 class="text-2xl font-semibold mb-5">Create Property</h2>
+            <h2 class="text-2xl font-semibold mb-5">Edit Property</h2>
 
             @if ($errors->any())
                 <div class="mb-5">
@@ -16,46 +16,49 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('properties.insert') }}" class="space-y-4" id="propertyForm">
+            <form method="POST" action="{{ route('properties.update', $property->id) }}" class="space-y-4"
+                id="propertyForm">
                 @csrf
+
                 <div>
                     <label for="name" class="block">Name:</label>
                     <input type="text" name="name" id="name" class="form-input mt-1 block w-full"
-                        value="{{ old('name') }}" required autofocus>
+                        value="{{ $property->title }}" required autofocus>
                 </div>
 
                 <div>
                     <label for="no_of_bedrooms" class="block">Number of Bedrooms:</label>
                     <input type="number" name="no_of_bedrooms" id="no_of_bedrooms" class="form-input mt-1 block w-full"
-                        value="{{ old('no_of_bedrooms') }}" required>
+                        value="{{ $property->no_of_bedrooms }}" required>
                 </div>
 
                 <div>
                     <label for="no_of_bathrooms" class="block">Number of Bathrooms:</label>
                     <input type="number" name="no_of_bathrooms" id="no_of_bathrooms"
-                        class="form-input mt-1 block w-full" value="{{ old('no_of_bathrooms') }}" required>
+                        class="form-input mt-1 block w-full" value="{{ $property->no_of_bathrooms }}" required>
                 </div>
 
                 <div>
                     <label for="area_in_sqft" class="block">Area in Sqft:</label>
                     <input type="text" name="area_in_sqft" id="area_in_sqft" class="form-input mt-1 block w-full"
-                        value="{{ old('area_in_sqft') }}" required>
+                        value="{{ $property->area_in_sqft }}" required>
+                </div>
+
+                <div>
+                    <label for="price" class="block">Price</label>
+                    <input type="text" name="price" id="price" class="form-input mt-1 block w-full"
+                        value="{{ $property->price }}" required>
                 </div>
 
                 <div>
                     <label for="place" class="block">Place:</label>
                     <input type="text" name="place" id="place" class="form-input mt-1 block w-full"
-                        value="{{ old('place') }}" required>
-                </div>
-
-                <div>
-                    <label for="price" class="block">Price</label>
-                    <input type="number" name="price" id="price" class="form-input mt-1 block w-full"
-                        value="{{ old('price') }}" required>
+                        value="{{ $property->place }}" required>
                 </div>
 
                 <div id="extraFeaturesContainer">
                     <!-- Dynamic input fields for extra features will be appended here -->
+
                 </div>
 
                 <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -63,7 +66,7 @@
 
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update
                         Property</button>
                 </div>
             </form>
@@ -76,7 +79,7 @@
             let counter = 0;
 
             // Function to add new input fields for extra features
-            function addFeatureInput() {
+            function addFeatureInput(key = '', value = '') {
                 const container = document.getElementById('extraFeaturesContainer');
                 const inputGroup = document.createElement('div');
                 inputGroup.classList.add('mt-4', 'flex', 'space-x-4');
@@ -86,6 +89,7 @@
                 keyInput.setAttribute('name', `extra_features[${counter}][key]`);
                 keyInput.setAttribute('class', 'form-input w-1/2');
                 keyInput.setAttribute('placeholder', 'Key');
+                keyInput.value = key;
                 inputGroup.appendChild(keyInput);
 
                 const valueInput = document.createElement('input');
@@ -93,6 +97,7 @@
                 valueInput.setAttribute('name', `extra_features[${counter}][value]`);
                 valueInput.setAttribute('class', 'form-input w-1/2');
                 valueInput.setAttribute('placeholder', 'Value');
+                valueInput.value = value;
                 inputGroup.appendChild(valueInput);
 
                 container.appendChild(inputGroup);
@@ -104,6 +109,16 @@
             document.getElementById('addFeatureBtn').addEventListener('click', function() {
                 addFeatureInput();
             });
+
+
+            @if ($property->extra_features != 'null')
+                @isset($property->extra_features)
+                    @foreach (json_decode($property->extra_features) as $extra_feature)
+                        addFeatureInput('{{ $extra_feature->key }}', '{{ $extra_feature->value }}');
+                    @endforeach
+                @endisset
+            @endif
+
 
             // Add event listener for changes in input fields inside the container
             document.getElementById('extraFeaturesContainer').addEventListener('change', function(event) {

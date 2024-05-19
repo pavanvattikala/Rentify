@@ -30,14 +30,15 @@ Route::middleware('auth')->group(function () {
 // properies routes
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
-    Route::get('/properties/create', [PropertyController::class, 'create'])->name('properties.create');
-    Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
-    Route::post('/properties/like', [PropertyController::class, 'like'])->name('properties.like');
-    Route::get('/properties/{property}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
-    Route::patch('/properties/{property}', [PropertyController::class, 'update'])->name('properties.update');
-    Route::delete('/properties/{property}', [PropertyController::class, 'destroy'])->name('properties.destroy');
+Route::middleware('auth')->name('properties.')->prefix('properties')->group(function () {
+    Route::get('create', [PropertyController::class, 'create'])->name('create');
+    Route::post('insert', [PropertyController::class, 'insert'])->name('insert');
+    Route::get('show/{id}', [PropertyController::class, 'show'])->name('show');
+    Route::post('/insert', [PropertyController::class, 'insert'])->name('insert');
+    Route::post('/like', [PropertyController::class, 'like'])->name('like');
+    Route::get('edit/{property}', [PropertyController::class, 'edit'])->name('edit');
+    Route::post('update/{property}', [PropertyController::class, 'update'])->name('update');
+    Route::delete('delete/{property}', [PropertyController::class, 'destroy'])->name('destroy');
 });
 
 

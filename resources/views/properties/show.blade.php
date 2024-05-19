@@ -38,14 +38,16 @@
 
                         <!-- additional fields -->
 
-                        @isset($property->extra_features)
-                            @foreach (json_decode($property->extra_features) as $extra_feature_key => $extra_feature_value)
+                        @if ($property->extra_features != 'null')
+
+                            @foreach (json_decode($property->extra_features) as $extra_feature)
                                 <div>
-                                    <p class="font-semibold">{{ $extra_feature_key }}:</p>
-                                    <p>{{ $extra_feature_value }}</p>
+                                    <p class="font-semibold">{{ $extra_feature->key }}:</p>
+                                    <p>{{ $extra_feature->value }}</p>
                                 </div>
                             @endforeach
-                        @endisset
+                        @endif
+
 
 
 

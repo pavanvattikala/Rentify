@@ -26,7 +26,7 @@ class PropertyController extends Controller
         return view('properties.create');
     }
 
-    public function store(Request $request)
+    public function insert(Request $request)
     {
         $request->validate([
             "name" => 'required|string',
@@ -84,7 +84,51 @@ class PropertyController extends Controller
         $property = Property::findOrFail($id);
         $user = auth()->user();
         $seller = User::findOrFail($property->user_id);
-        Mail::to($user->email)->send(new SellerDetails($user, $property, $seller));
+        $sessionKey = 'email_sent_for_property_' . $property->id . '_to_user_' . $user->id;
+
+        if (!session()->has($sessionKey)) {
+            Mail::to($user->email)->send(new SellerDetails($user, $property, $seller));
+            session()->put($sessionKey, true);
+        }
+
         return view('properties.show', compact('property'));
+    }
+
+
+    public function edit(Property $property)
+    {
+        return view('properties.edit', compact('property'));
+    }
+
+
+    public function update(Request $request, Property $property)
+    {
+        $request->validate([
+            "name" => 'required|string',
+            'no_of_bedrooms' => 'required|integer',
+            'no_of_bathrooms' => 'required|integer',
+            'area_in_sqft' => 'required|string',
+            'price' => 'required|integer',
+            'place' => 'required|string',
+            'extra_features' => 'nullable',
+        ]);
+
+        $property->title = $request->name;
+        $property->price = $request->price;
+        $property->no_of_bedrooms = $request->no_of_bedrooms;
+        $property->no_of_bathrooms = $request->no_of_bathrooms;
+        $property->area_in_sqft = $request->area_in_sqft;
+        $property->place = $request->place;
+
+        $property->extra_features = json_encode($request->extra_features);
+        $property->save();
+
+        return redirect()->route('dashboard');
+    }
+
+    public function destroy(Property $property)
+    {
+        $property->delete();
+        return redirect()->route('dashboard');
     }
 }
