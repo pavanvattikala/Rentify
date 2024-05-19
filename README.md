@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Rentify - Where Renting Meets Simplicity
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Rentify is a web application developed as part of a hiring challenge by Presidio. The application simplifies the process of finding rental properties for tenants and listing properties for landlords. The challenge involves building both the backend and frontend components, implementing additional features, and optionally deploying the application to a cloud platform.
 
-## About Laravel
+## Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project spans three main parts:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Part I - Basic Application (Mandatory)**
+2. **Part II - Add-On Features (Advanced)**
+3. **Part III - Extra (Optional): Bonus Section**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech Stack Used
 
-## Learning Laravel
+For this project, we chose the following technology stack:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   **Frontend**: Tailwind CSS
+-   **Backend**: Laravel
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation and Setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prerequisites
 
-## Laravel Sponsors
+-   PHP 7.4 or higher
+-   Composer
+-   Laravel 8 or higher
+-   MySQL or another database supported by Laravel
+-   Node.js and npm (for frontend asset management)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Steps to Setup
 
-### Premium Partners
+1. **Clone the repository:**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    ```bash
+    git clone https://github.com/pavanvattikala/Rentify.git
+    cd rentify
+    ```
 
-## Contributing
+2. **Install dependencies:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    composer install
+    npm install
+    npm run dev
+    ```
 
-## Code of Conduct
+3. **Set up the environment file:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    Copy the `.env.example` file to `.env` and update the necessary configuration values.
 
-## Security Vulnerabilities
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Run migrations:**
 
-## License
+    ```bash
+    php artisan migrate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. **Seed the database (optional):**
+
+    ```bash
+    php artisan db:seed
+    ```
+
+6. **Start the development server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+## Usage
+
+### Property Listing
+
+-   Visit the home page to see a list of properties.
+-   Use the filter form to filter properties by price range.
+
+### Property Details
+
+-   Click on a property to view its details.
+-   If interested, click the "I'm Interested" button to view the seller's contact information (requires login).
+
+### Seller Actions
+
+-   Sellers can log in to view, edit, or delete their posted properties.
+-   Sellers receive email notifications when a buyer shows interest in their property.
+
+## Conclusion
+
+The Rentify project successfully demonstrates the creation of a full-stack web application with Laravel, handling various user roles, CRUD operations, real-time interactions, and email notifications. The implementation follows best practices in software development, ensuring scalability and maintainability. This project was developed under the constraints of a hiring challenge, showcasing the ability to deliver a robust and functional application within a limited time frame.
+
+---
+
+By following this readme, you can set up and run the Rentify application on your local machine. For further enhancements or contributions, feel free to fork the repository and submit pull requests.
