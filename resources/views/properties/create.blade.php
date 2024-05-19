@@ -105,7 +105,7 @@
                 const input = event.target;
                 if (input.tagName === 'INPUT') {
                     let value = input.value;
-                    value = value.trim();
+                    value = value.trim().toLowerCase();
                     // replace " " with "_" and remove all special characters
                     value = value.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
                     input.value = value;
