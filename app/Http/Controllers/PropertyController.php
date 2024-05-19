@@ -15,9 +15,21 @@ class PropertyController extends Controller
 {
     //
 
-    public function list()
+    public function list(Request $request)
     {
-        $properties = Property::all();
+        $query = Property::query();
+
+        // Apply filters if they are present in the request
+        if ($request->has('price_from') && $request->price_from != '') {
+            $query->where('price', '>=', $request->price_from);
+        }
+
+        if ($request->has('price_to') && $request->price_to != '') {
+            $query->where('price', '<=', $request->price_to);
+        }
+
+        $properties = $query->get();
+
         return view('properties.list', compact('properties'));
     }
 
