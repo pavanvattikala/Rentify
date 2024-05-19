@@ -75,4 +75,10 @@ class PropertyController extends Controller
 
         return back();
     }
+
+    public function show($id)
+    {
+        $property = Property::findOrFail($id);
+        return view('properties.show', compact('property'));
+    }
 }
