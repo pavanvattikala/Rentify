@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SellerDetails;
 use App\Models\Property;
 use App\Models\PropertyLikes;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
@@ -79,6 +82,9 @@ class PropertyController extends Controller
     public function show($id)
     {
         $property = Property::findOrFail($id);
+        $user = auth()->user();
+        $seller = User::findOrFail($property->user_id);
+        Mail::to($user->email)->send(new SellerDetails($user, $property, $seller));
         return view('properties.show', compact('property'));
     }
 }
