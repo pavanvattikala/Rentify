@@ -14,4 +14,8 @@
             </div>
         </div>
     </div>
+
+    <a href="{{ route('properties.create') }}">Create property</a>
+
+
 </x-app-layout>
